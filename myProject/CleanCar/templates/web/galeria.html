@@ -1,0 +1,58 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block titulo %}Galería{% endblock titulo %}
+{% block estilos %}
+    <link rel="stylesheet" href="{% static 'css/galeria_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+{% endblock estilos %}
+
+{% block contenido %}
+    <div class="content">
+        <h1>Instalaciones</h1>
+        <div class="seccion">
+
+            {% for item in lista_instalaciones %}
+            
+                <div class="card">
+                    <a href="{{item.imagen.url}}" data-lightbox="instalaciones" data-title="{{item.name}}"><img src="{{item.imagen.url}}" alt=""></a>
+                    <div>
+                        <span class="titulo">{{item.name}}</span>
+                        <span class="texto">{{item.direccion}}</span>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+        <h1>Empleados</h1>
+        <div class="seccion">
+
+            {% for item in lista_empleados %}
+            
+                <div class="card">
+                    <a href="{{item.imagen.url}}" data-lightbox="empleados" data-title="{{item.name}}"><img src="{{item.imagen.url}}" alt=""></a>
+                    <div>
+                        <span class="titulo">{{item.name}}</span>
+                        <span class="texto">{{item.descripcion}}</span>
+                    </div>
+                </div>
+            
+            {% endfor %}
+
+        </div>
+
+    </div>
+{% endblock contenido %}
+
+{% block scripts %}
+    <script src="{% static 'js/lightbox.js' %}"></script>
+    <script>
+        lightbox.option({
+            'resizeDuration': 400,
+            'wrapAround': true,
+            'alwaysShowNavOnTouchDevices': true,
+            'fitImagesInViewport': true
+        })
+    </script>
+{% endblock scripts %}

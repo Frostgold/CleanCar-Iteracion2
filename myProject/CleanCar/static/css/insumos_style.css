@@ -1,0 +1,77 @@
+.listado-insumos h1 {
+    text-align: center;
+    font-weight: bold;
+    margin: 1.255rem;
+    font-size: 1.5rem;
+}
+.lista-insumos {
+    margin: auto;
+    width: 95%;
+    font-size: 0.625rem;
+    border-collapse: collapse;
+}
+.lista-insumos tr {
+    border-bottom: 1px solid black;
+}
+.lista-insumos tr:first-child {
+    font-weight: bold;
+}
+.lista-insumos td {
+    padding: 0.5rem;
+}
+.lista-insumos td:last-child {
+    text-align: center;
+}
+.lista-insumos a {
+    color: cadetblue;
+    text-decoration: none;
+    cursor: pointer;
+}
+.lista-insumos a:first-child {
+    color: red;
+}
+.lista-insumos svg {
+    width: 1rem;
+    margin: 0.5rem;
+}
+
+/* Small (sm) */
+@media (min-width: 640px) { 
+    .lista-insumos {
+        width: 90%;
+        font-size: 1rem;
+    }
+    .lista-insumos td {
+        padding: 0.755rem;
+    }
+    .lista-insumos svg {
+        width: 1.255rem;
+    }
+ }
+
+/* Medium (md) */
+@media (min-width: 768px) { 
+    .lista-insumos {
+        width: 85%;
+    }
+    .lista-insumos svg {
+        width: 1.5rem;
+    }
+}
+
+/* Large (lg) */
+@media (min-width: 1024px) { 
+    .listado-insumos h1 {
+        font-size: 1.755rem;
+    }
+    .lista-insumos {
+        width: 75%;
+    }
+ }
+
+/* Extra Large (xl) */
+@media (min-width: 1280px) { 
+    .lista-insumos {
+        width: 70%;
+    }
+ }

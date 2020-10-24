@@ -1,0 +1,102 @@
+.content{
+    width: 100%;
+    margin: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.content .map{
+    width: 80%;
+    margin: auto;
+    height: fit-content;
+    padding: 1.5rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    box-shadow: 1px 3px black;
+}
+#gmap{
+    width: 100%;
+    height: 18rem;
+}
+.content .map h1{
+    width: fit-content;
+    margin: auto;
+    padding-bottom: 1.5rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.content .map h6{
+    color: darkgrey;
+}
+.content ul li{
+    margin-left: 3rem;
+    padding-top: 3rem;
+}
+.content ul h1{
+    padding-top: 3.755rem;
+    font-size: 1.75rem;
+    width: fit-content;
+    margin: auto;
+}
+.content ul li h4{
+    font-size: 1.225rem;
+}
+.content ul li h6{
+    color: darkgrey;
+}
+.content ul{
+    padding-left: 0;
+}
+
+
+/* Small (sm) */
+@media (min-width: 640px) { 
+    .content ul li{
+        margin-left: 6rem;
+    }
+    .content .map{
+        width: fit-content;
+    }
+    #gmap{
+        width: 30rem;
+        height: 22.5rem;
+    }
+ }
+
+/* Medium (md) */
+@media (min-width: 768px) { 
+    #gmap{
+        width: 37.5rem;
+        height: 28.125rem;
+    }
+}
+
+/* Large (lg) */
+@media (min-width: 1024px) { 
+    .content{
+        display: flex;
+        justify-content: space-between;
+    }
+    .content ul{
+        border-left: 1px solid black;
+        padding-left: 2rem;
+        width: 30%;
+        margin: auto;
+    }
+    .content ul h1{
+        margin: 0;
+        padding-top: 1.755rem;
+    }
+    .content ul li{
+        margin-left: 4rem;
+    }
+ }
+
+/* Extra Large (xl) */
+@media (min-width: 1280px) { 
+    .content ul{
+        width: 25%;
+    }
+    .content ul h1{
+        padding-left: 0.755rem;
+        font-size: 2em;
+    }
+ }

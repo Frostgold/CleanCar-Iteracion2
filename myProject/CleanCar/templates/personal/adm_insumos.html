@@ -1,0 +1,99 @@
+{% extends 'web/base.html'%}
+{% load static %}
+
+{% block titulo %}Registro insumos{% endblock titulo %}
+{% block estilos %}
+    <link rel="stylesheet" href="{% static 'css/form_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/insumos_style.css' %}">
+{% endblock estilos %}
+
+{% block contenido %}
+    <div class="content">
+        <div class="formulario">
+            <h1>Formulario insumos</h1>
+            <hr>
+            <form id="formInsumos" action="" method="POST">
+            {% csrf_token %}
+                <div class="grupo">
+                    <h4>Nombre(*):</h4>
+                    <input class="borde" type="text" name="nombre" id="txtNombre" placeholder="Nombre producto" pattern="[A-Za-z]+" required>
+                </div>
+                <div class="grupo">
+                    <h4>Precio(*):</h4>
+                    <input class="borde" type="text" name="precio" id="txtPrecio" placeholder="Precio producto" pattern="[0-9]+" required>
+                </div>
+                <div class="grupo">
+                    <h4>Cantidad(*):</h4>
+                    <input class="borde" type="number" name="stock" id="txtStock" placeholder="Stock producto" min="0" required>
+                </div>
+                <div class="grupo">
+                    <h4>Descripcion:</h4>
+                    <input class="borde" type="text" name="descripcion" id="txtDescripcion" placeholder="Descripcion opcional" pattern="[A-Za-z]+">
+                </div>
+                <button type="submit" name="accion" value="registrar">Registrar</button>
+            </form>
+        </div>
+        
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="msg msg-{{ message.tags }}">
+                        <h4>{{ message }}</h4>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        <div class="listado-insumos">
+            <h1>Listado insumos</h1>
+            <table class="lista-insumos">
+                <tr>
+                    <td>Nombre</td>
+                    <td>Precio</td>
+                    <td>Stock</td>
+                    <td>Descripción</td>
+                    <td>Operaciones</td>
+                </tr>
+
+                {% for item in lista_insumos %}
+                <tr>
+                    <td>{{item.name}}</td>
+                    <td>{{item.precio}}</td>
+                    <td>{{item.stock}}</td>
+                    <td>{{item.descripcion}}</td>
+                    <td>
+                        <a onclick="confirmar('{{item.name}}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </a>
+                        <a href="{% url 'MODIFICAR' item.name %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+
+    </div>
+{% endblock contenido %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="{% static 'js/form.js' %}"></script>
+    <script>
+        function confirmar(nombre) {
+            let msg;
+            let opcion = confirm('Seguro que desea eliminar '+nombre+'?')
+
+            if (opcion == true) {
+                location.href = '/eliminar_insumo/'+nombre+'/'
+            } else {
+                msg = 'Canceló'
+                alert(msg);
+            }
+        }
+    </script>
+{% endblock scripts %}

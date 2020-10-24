@@ -1,0 +1,58 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block titulo %}Registro{% endblock titulo %}
+{% block estilos %}
+    <link rel="stylesheet" href="{% static 'css/form_style.css' %}">
+{% endblock estilos %}
+
+{% block contenido %}
+    <div class="content">
+        <div class="formulario">
+            <h1>Formulario registro</h1>
+            <hr>
+            <form id="formRegistro" action="" method="POST">
+                {% csrf_token %}
+                <div class="grupo">
+                    <h4>Nombre(*):</h4>
+                    <input class="borde" type="text" name="nombre" id="txtNombre" placeholder="Ingrese nombre" pattern="[A-Za-z]+" required>
+                </div>
+                <div class="grupo">
+                    <h4>Apellido(*):</h4>
+                    <input class="borde" type="text" name="apellido" id="txtApellido" placeholder="Ingrese apellido" pattern="[A-Za-z]+" required>
+                </div>
+                <div class="grupo">
+                    <h4>Correo(*):</h4>
+                    <input class="borde" type="email" name="correo" id="txtCorreo" placeholder="ejemplo@correo.cl" required>
+                </div>
+                <div class="grupo">
+                    <h4>Nombre de usuario(*):</h4>
+                    <input class="borde" type="text" name="usuario" id="txtUsuario" placeholder="Ingrese nombre de usuario" pattern="[a-zA-Z0-9]+" required>
+                </div>
+                <div class="grupo">
+                    <h4>Contraseña(*):</h4>
+                    <input class="borde" type="text" name="contrasena" id="txtContrasena" placeholder="Ingrese contraseña" required>
+                </div>
+                <div class="grupo">
+                    <h4>Confirmar contraseña(*):</h4>
+                    <input class="borde" type="text" name="confirmacion" id="txtConfirmar" placeholder="Confirmar contraseña" required>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="msg msg-{{ message.tags }}">
+                    <h4>{{ message }}</h4>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+{% endblock contenido %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="{% static 'js/form.js' %}"></script>
+{% endblock scripts %}

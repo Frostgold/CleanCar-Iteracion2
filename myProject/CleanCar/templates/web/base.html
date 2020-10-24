@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Car - {% block titulo %}{% endblock titulo %}</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block estilos %}
+    {% endblock estilos %}
+</head>
+<body>
+    <div id="header">
+        <nav>
+            <a class="logo" href="{% url 'INDEX' %}">
+                <img src="{% static 'img/logo.png' %}" alt="">
+                <h1>Clean car</h1>
+            </a>
+            <div>
+            <ul id="nav-links">
+                <li><a href="{% url 'INDEX' %}">Inicio</a></li>
+                <li><a href="{% url 'GALERIA' %}">Galería</a></li>
+                <li><a href="{% url 'UBICACIONES' %}">Ubicaciones</a></li>
+                <li><a href="{% url 'FORMULARIO' %}">Registro</a></li>
+                
+                {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <svg onclick="dropMenu()" class="dropbtn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div id="dropLinks" class="dropdown-content">
+                            <h4 style="text-align: center; color: black; padding-top: 0.5rem; padding-bottom: 0.5rem;">Bienvenido <br> {{user.first_name}} {{user.last_name}}</h4>
+                            <a href="{% url 'ADM_INSUMOS' %}">Adm. Insumos</a>
+                            <a href="{% url 'LOGOUT' %}">Cerrar sesión </a>
+                        </div>
+                    </div>
+                    
+                {% else %}
+                    <li><a href="{% url 'LOGIN' %}">Iniciar sesión </a></li>
+                {% endif %}
+                
+            </ul>
+            </div>
+            <input type="checkbox" id="toggle">
+            <label for="toggle" id="btnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </label>
+            <ul id="ham-links">
+
+                {% if user.is_authenticated %}
+                    <h1 style="text-align: center; color: white; padding-top: 0.5rem; padding-bottom: 0.5rem;">Bienvenido <br> {{user.first_name}} {{user.last_name}}</h1>
+                {% endif %}
+
+                <li><a href="{% url 'INDEX' %}">Inicio</a></li>
+                <li><a href="{% url 'GALERIA' %}">Galería</a></li>
+                <li><a href="{% url 'UBICACIONES' %}">Ubicaciones</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'FORMULARIO' %}">Registro</a></li>
+                    <li><a href="{% url 'ADM_INSUMOS' %}">Adm. Insumos</a></li>
+                    <li><a href="{% url 'LOGOUT' %}">Cerrar sesión </a></li>
+                {% else %}
+                    <li><a href="{% url 'LOGIN' %}">Iniciar sesión </a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+    </div>
+
+    {% block contenido %}
+
+    {% endblock contenido %}
+
+    <footer class="footer">
+        <div id="footer">
+            <div class="contenido">
+                <div>
+                    <img src="{% static 'img/footer.jpg' %}" alt="">
+                    <div id="vision" class="texto">
+                        <h1>Nuestra visión</h1>
+                        <p>{{vision.descripcion}}</p>
+                    </div>
+                    <ul>
+                        <li><a href="{% url 'INDEX' %}">Inicio</a></li>
+                        <li><a href="{% url 'GALERIA' %}">Galería</a></li>
+                        <li><a href="{% url 'UBICACIONES' %}">Ubicaciones</a></li>
+                    </ul>    
+                </div>
+            </div>
+            <div class="bottom">
+                <h4>© 2020 Clean car.  Todos los derechos reservados.</h4>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/navbar.js' %}"></script>
+    {% block scripts %}
+    {% endblock scripts %}
+</body>
+</html>

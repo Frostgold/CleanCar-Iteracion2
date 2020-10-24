@@ -1,0 +1,45 @@
+{% extends 'web/base.html'%}
+{% load static %}
+
+{% block titulo %}Registro insumos{% endblock titulo %}
+{% block estilos %}
+    <link rel="stylesheet" href="{% static 'css/form_style.css' %}">
+{% endblock estilos %}
+
+{% block contenido %}
+    <div class="content">
+        <div class="formulario">
+            <h1>Formulario insumos</h1>
+            <hr>
+            <form id="formInsumos" action="{% url 'ACTUALIZAR' %}" method="POST">
+            {% csrf_token %}
+                <div class="grupo">
+                    <h4>Nombre(*):</h4>
+                    <input class="borde" type="text" value="{{item.name}}" name="nombre" id="txtNombre" placeholder="Nombre producto" pattern="[A-Za-z]+" required>
+                </div>
+                <div class="grupo">
+                    <h4>Precio(*):</h4>
+                    <input class="borde" type="text" value="{{item.precio}}" name="precio" id="txtPrecio" placeholder="Precio producto" pattern="[0-9]+" required>
+                </div>
+                <div class="grupo">
+                    <h4>Cantidad(*):</h4>
+                    <input class="borde" type="number" value="{{item.stock}}" name="stock" id="txtStock" placeholder="Stock producto" min="0" required>
+                </div>
+                <div class="grupo">
+                    <h4>Descripcion:</h4>
+                    <input class="borde" type="text" value="{{item.descripcion}}" name="descripcion" id="txtDescripcion" placeholder="Descripcion opcional" pattern="[A-Za-z]+">
+                </div>
+                <button type="submit">Actualizar</button>
+            </form>
+        </div>
+        
+        <div class="msg">
+            <h1>{{msg}}</h1>
+        </div>
+    </div>
+{% endblock contenido %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="{% static 'js/form.js' %}"></script>
+{% endblock scripts %}

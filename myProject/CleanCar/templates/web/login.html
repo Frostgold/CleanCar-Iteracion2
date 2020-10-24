@@ -1,0 +1,43 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block titulo %}Login{% endblock titulo %}
+
+{% block estilos %}
+    <link rel="stylesheet" href="{% static 'css/form_style.css' %}">
+{% endblock estilos %}
+
+{% block contenido %}
+    <div class="content">
+        <div class="formulario">
+            <h1>Login de acceso</h1>
+            <hr>
+            <form id="formLogin" action="{% url 'LOGIN' %}" method="POST">
+                {% csrf_token %}
+                <div class="grupo">
+                    <h4>Nombre de usuario(*):</h4>
+                    <input class="borde" type="text" name="usuario" id="txtUser" placeholder="Ingrese nombre de usuario" pattern="[a-zA-Z0-9]+" required>
+                </div>
+                <div class="grupo">
+                    <h4>Contraseña(*):</h4>
+                    <input class="borde" type="text" name="contrasena" id="txtPassword" placeholder="Ingrese contraseña" required>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="msg msg-{{ message.tags }}">
+                    <h4>{{ message }}</h4>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+{% endblock contenido %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="{% static 'js/form.js' %}"></script>
+{% endblock scripts %}

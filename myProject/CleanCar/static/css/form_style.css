@@ -1,0 +1,105 @@
+.formulario{
+    border: 1px solid gray;
+    border-radius: 1rem;
+    width: 99%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    overflow: hidden;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.formulario h1{
+    margin: 0px;
+    padding: 1rem;
+    background-color: rgb(49, 49, 49);
+    color: rgb(219, 219, 219);
+}
+.formulario hr{
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+.formulario form{
+    margin: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.formulario form div{
+    padding-bottom: 1rem;
+    width: 90%;
+    margin: auto;
+}
+.formulario h4{
+    margin: 0.5rem;
+    text-align: start;
+}
+.grupo input{
+    width: 90%;
+    margin: auto;
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+.formulario button{
+    width: 30%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid gray;
+}
+.formulario button:hover{
+    background-color: gray;
+}
+
+.borde{
+    border: 1px solid gray;
+}
+.valido{
+    border: 1px solid rgb(0, 255, 0);
+}
+.error{
+    border: 1px solid red;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+.error-text{
+    display: block;
+    color: red;
+}
+
+/* Small (sm) */
+@media (min-width: 640px) { /* */ }
+
+
+/* Medium (md) */
+@media (min-width: 768px) {
+    .formulario{
+        width: 80%;
+        box-shadow: 3px 7px;
+    }
+ }
+
+/* Large (lg) */
+@media (min-width: 1024px) {
+
+    .formulario{
+        width: 70%;
+    }
+    .formulario form div{
+        width: 85%;
+    }
+    .formulario h4{
+        padding-left: 2rem;
+    }
+    .formulario form input{
+        width: 70%;
+    }
+
+}
+
+/* Extra Large (xl) */
+@media (min-width: 1280px) { 
+    .formulario{
+        width: 55%;
+    }
+}

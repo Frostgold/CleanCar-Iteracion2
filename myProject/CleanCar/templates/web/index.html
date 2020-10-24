@@ -1,0 +1,88 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block titulo %}Lavado de autos{% endblock titulo %}
+{% block estilos %}
+    <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
+{% endblock estilos%}
+
+{% block contenido %}
+    <div class="content">
+        <div id="carousel">
+            <div>
+                <svg class="flecha" id="prevBtn" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+            </div>
+            <div id="carousel-slide">
+                <img src="{{last.imagen.url}}" alt="" id="lastClone">
+                {% for item in slider %}
+
+                     <img src="{{item.imagen.url}}" alt="" >
+
+                {% endfor %}
+                <img src="{{first.imagen.url}}" alt="1" id="firstClone">
+            </div>
+            <div>
+                <svg class="flecha" id="nextBtn" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            </div>
+            <h1>Lavado de autos<br>empresariales</h1>
+        </div>
+        <div id="img-btm">
+            <div class="text">
+                <p class="one">Servicio de lavado de autos para estacionamientos empresariales</p>
+            </div>
+            <div class="solid"></div>
+            <div class="text">
+                <p>Si buscas entregarle el mejor servicio a tus empleados, no hay nada mejor que volver de trabajar y encontrar tu vehiculo como nuevo.</p>
+            </div>
+        </div>
+
+        <div class="opinion">
+            <img src="{% static 'img/clientes/cliente3.jpg' %}" alt="">
+            <div class="review-content">
+                <h4>Muy contenta con el resultado</h4>
+                <div>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <h6>Casa Matriz, Sucursal Puente Alto</h6>
+            </div>
+        </div>
+        <div class="division"></div>
+        <div class="opinion">
+            <div class="review-content">
+                <h4>El mejor servicio de la vida</h4>
+                <div>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                </div>
+                <h6>Sucursal Manquehue</h6>
+            </div>
+            <img src="{% static 'img/clientes/cliente1.jpg' %}" alt="">
+        </div>
+        <div class="division"></div>
+        <div class="opinion">
+            <img src="{% static 'img/clientes/cliente2.jpg' %}" alt="">
+            <div class="review-content">
+                <h4>Mi vehiculo quedó como nuevo</h4>
+                <div>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <h6>Sucursal La Florida</h6>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}
+
+{% block scripts %}
+    <script src="{% static 'js/index.js' %}"></script>
+{% endblock scripts %}
