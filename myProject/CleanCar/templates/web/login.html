@@ -22,6 +22,9 @@
                     <h4>Contraseña(*):</h4>
                     <input class="borde" type="text" name="contrasena" id="txtPassword" placeholder="Ingrese contraseña" required>
                 </div>
+                
+                <a href="{% url 'social:begin' 'facebook' %}">Login con facebook</a>
+
                 <h6>¿Olvidaste tu contraseña?<a href="{% url 'password_reset' %}">Presiona aquí</a></h6>
                 <button type="submit">Enviar</button>
             </form>

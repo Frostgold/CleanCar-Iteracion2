@@ -14,4 +14,6 @@ urlpatterns = [
     path('modificar_insumo/<id>/', modificar_insumo, name="MODIFICAR"),
     path('actualizar/', actualizar, name="ACTUALIZAR"),
     path('accounts/login/', login, name="ACCOUNTSLOGIN"),
+
+    path('oauth/', include('social_django.urls', namespace='social')),
 ]
