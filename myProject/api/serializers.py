@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 # modelo a serializar
 
-class InsumoSerializer(serializers.ModelSerializer):
+class InsumosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Insumo
-        flieds = ["nombre", "precio", "descripcion", "stock"]
+        fields = ["name", "precio", "descripcion", "stock"]

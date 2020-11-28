@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login as login_auth
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+import requests
 
 # Create your views here.
 def logout_view(request):
@@ -74,7 +75,8 @@ def formulario(request):
 @permission_required('CleanCar.add_insumo', login_url='/login/')
 def admin_insumos(request):
     vision = Vision.objects.first()
-    insumo = Insumo.objects.all()
+    response = requests.get("http://127.0.0.1:8000/api/insumos/")
+    insumo = response.json()
     if request.POST:
         accion = request.POST.get("accion")
 
@@ -84,13 +86,13 @@ def admin_insumos(request):
             stock       = request.POST.get("stock")
             descripcion = request.POST.get("descripcion")
 
-            insumos = Insumo(
-                name        = nombre,
-                descripcion = descripcion,
-                precio      = precio,
-                stock       = stock
-            )
-            insumos.save()
+            datos_api = {
+                "name": nombre,
+                "precio": precio,
+                "descripcion": descripcion,
+                "stock": stock
+            }
+            respuesta = requests.post("http://127.0.0.1:8000/api/insumos/", data=datos_api)
             messages.success(request, 'Se agregó un insumo')
 
             return redirect(admin_insumos)
