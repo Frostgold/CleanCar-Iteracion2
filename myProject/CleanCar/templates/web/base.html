@@ -10,12 +10,81 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block estilos %}
+    {% endblock estilos %}
 
     {% load pwa %}
     {% progressive_web_app_meta %}
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-messaging.js"></script>
+
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDpzcnW1kMRlvTr9Sqj2pKW9337Wi_5K5Y",
+            authDomain: "project-cleancar.firebaseapp.com",
+            databaseURL: "https://project-cleancar.firebaseio.com",
+            projectId: "project-cleancar",
+            storageBucket: "project-cleancar.appspot.com",
+            messagingSenderId: "866705797907",
+            appId: "1:866705797907:web:4ff2b9a648fb139b3260e6"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        /////////////////////////////////////////////////////////////////////
+        let messaging = firebase.messaging();
+
+        navigator.serviceWorker
+        .register('serviceworker.js')
+        .then(function(register){
+            messaging.useServiceWorker(register);
+            messaging.requestPermission()
+            .then(function(){
+                console.log("El usuario aceptó notificaciones")
+                // Creación authentification token
+                return messaging.getToken();
+            })
+            .then(function(token){
+                console.log(token)
+                // enviar este token a una funcion en el interior de View.py
+                fetch('guardar-token/', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'token': token
+                    })
+                })
+                ////////////////////////////////////////////////////////////
+            })
+            .catch(function(e){
+                console.log("El usuario no aceptó notificaciones")
+            })
+        })
+        /////////////////////////////////////////////////////////////////////
+        // generar estructura de la notificacion
+
+        messaging.onMessage(function(payload){
+            let titulo=payload.notification.title
+            let opciones = {
+                body: payload.notification.body,
+                icon: payload.notification.icon
+            }
+            let mensaje = new Notification(titulo,opciones);
+        });
+
+        /////////////////////////////////////////////////////////////////////
+        
+    </script>
     
-    {% block estilos %}
-    {% endblock estilos %}
 </head>
 <body>
     <div id="header">

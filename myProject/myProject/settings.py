@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'pwa',
+    'fcm_django',
 ]
 
 MIDDLEWARE = [
@@ -140,6 +141,21 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# configuracion FCMDevice
+FCM_DJANGO_SETTINGS = {
+         # default: _('FCM Django')
+        "APP_VERBOSE_NAME": "project-cleancar",
+         # Your firebase API KEY
+        "FCM_SERVER_KEY": "AAAAycuw8xM:APA91bHhvKOWWeFAdKYNngcHAwDh5nk0bj2Ohq59P8SXsM-h-sLuJ0C_dx_yGtZjnT52neMMcO-DK7wIXT0KA_K9PxeSnHAX8UVOr2RG-UfW1ps5SgkCbVxKmhWHkdte5eGTC1CBgzqz",
+         # true if you want to have only one active device per registered user at a time
+         # default: False
+        "ONE_DEVICE_PER_USER": False,
+         # devices to which notifications cannot be sent,
+         # are deleted upon receiving error response from FCM
+         # default: False
+        "DELETE_INACTIVE_DEVICES": True,
+}
 
 # Variables de entorno para smtp
 EMAIL_USE_TLS = True

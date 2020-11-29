@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-from CleanCar.models import Insumo
-from .serializers import InsumosSerializer
+from CleanCar.models import Insumo, Contacto
+from .serializers import InsumosSerializer, ContactoSerializer
 from rest_framework import generics
 
 # Create your views here.
@@ -20,3 +20,7 @@ class InsumosFiltroPrecioViewSet(generics.ListAPIView):
     def get_queryset(self):
         elprecio = self.kwargs['precio']
         return Insumo.objects.filter(precio=elprecio)    
+
+class ContactoViewSet(generics.ListCreateAPIView):
+    queryset = Contacto.objects.all()
+    serializer_class = ContactoSerializer

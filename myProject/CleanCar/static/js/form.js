@@ -135,6 +135,34 @@ $( "#formRegistro" ).validate({
     }
 });
 
+$( "#formContacto" ).validate({
+    rules: {
+        nombre: {
+            required: true,
+            minlength: 3,
+            maxlength: 50,
+            pattern: "([a-zA-Z ])+"
+        },
+        apellido: {
+            required: true,
+            minlength: 3,
+            maxlength: 50,
+            pattern: "([a-zA-Z ])+"
+        },
+        asunto: {
+            required: true,
+            minlength: 8,
+            maxlength: 50,
+            pattern: "([a-zA-Z ])+"
+        },
+        mensaje: {
+            required: true,
+            minlength: 10,
+            maxlength: 200
+        },
+    }
+});
+
 /* Mensajes de error Login */
 $("#txtUser").rules("add", {
     messages: {
@@ -219,5 +247,22 @@ $("#txtDescripcion").rules("add", {
         minlength: jQuery.validator.format("Por favor, ingresar al menos {0} caracteres"),
         maxlength: jQuery.validator.format("Por favor, ingresar máximo {0} caracteres"),
         pattern: "Campo inválido"
+      }
+});
+
+/* Mensajes de error Contacto */
+$("#txtAsunto").rules("add", {
+    messages: {
+        required: "Campo obligatorio",
+        minlength: jQuery.validator.format("Por favor, ingresar al menos {0} caracteres"),
+        maxlength: jQuery.validator.format("Por favor, ingresar máximo {0} caracteres"),
+        pattern: "Campo inválido"
+      }
+});
+$("#txtMensaje").rules("add", {
+    messages: {
+        required: "Campo obligatorio",
+        minlength: jQuery.validator.format("Por favor, ingresar al menos {0} caracteres"),
+        maxlength: jQuery.validator.format("Por favor, ingresar máximo {0} caracteres")
       }
 });

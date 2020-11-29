@@ -41,3 +41,14 @@ class Vision(models.Model):
     def __str__(self):
         return self.name
     
+class Contacto(models.Model):
+    cod      = models.AutoField(primary_key=True)
+    name     = models.CharField(max_length=50)
+    lastname = models.CharField(max_length=50)
+    asunto   = models.CharField(max_length=50)
+    contacto = models.CharField(max_length=15)
+    mensaje  = models.TextField(max_length=200)
+
+    def __str__(self):
+        return self.name
+    

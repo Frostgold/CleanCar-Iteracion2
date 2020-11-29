@@ -1,10 +1,44 @@
 from django.shortcuts import render, redirect
-from .models import Instalacion, Empleado, Insumo, Vision, Slider
+from .models import Instalacion, Empleado, Insumo, Vision, Slider, Contacto
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login as login_auth
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+
 import requests
+
+# ------------------------------------
+# import para el acceso del token desde javascript, posterior almacenamiento
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.core import serializers
+import json
+from fcm_django.models import FCMDevice
+# creacion de la funcion que permite guardar
+@csrf_exempt
+@require_http_methods(['POST'])
+def guardar_token(request):
+    body = request.body.decode('utf-8')
+    bodyDatos = json.loads(body)
+    token = bodyDatos['token']
+    # para evitar almacenar duplicados
+    existe = FCMDevice.objects.filter(registration_id=token, active=True)
+    if len(existe)>0:
+        return HttpResponseBadRequest(json.dumps({'mensaje': 'el token ya existe'}))
+    dispo = FCMDevice()
+    dispo.registration_id = token
+    dispo.active = True
+    # si el usuario está autentificado se puede almacenar
+    if request.user.is_authenticated:
+        dispo.user = request.user
+    try:
+        dispo.save()
+        return HttpResponse(json.dumps({'mensaje': 'token almacenado'}))
+    except:
+        return HttpResponseBadRequest(json.dumps({'mensaje': 'el token no se pudo almacenar'}))
+#-------------------------------------
 
 # Create your views here.
 def logout_view(request):
@@ -71,6 +105,38 @@ def formulario(request):
 
     return render(request, 'personal/formulario.html', {'vision':vision})
 
+def contacto(request):
+    vision = Vision.objects.first()
+
+    if request.POST:
+        nombre   = request.POST.get("nombre")
+        apellido = request.POST.get("apellido")
+        asunto   = request.POST.get("asunto")
+        contacto = request.POST.get("contacto")
+        mensaje  = request.POST.get("mensaje")
+
+        datos_api = {
+            "name": nombre,
+            "lastname": apellido,
+            "asunto": asunto,
+            "contacto": contacto,
+            "mensaje": mensaje
+        }
+        respuesta = requests.post("http://127.0.0.1:8000/api/contacto/", data=datos_api)
+        messages.success(request, 'Su mensaje ha sido enviado')
+
+        # Enviar notificacion
+        dispositivos = FCMDevice.objects.filter(name="admin")
+        dispositivos.send_message(
+            title = 'Nuevo mensaje de '+contacto,
+            body = 'Nuevo mensaje de contacto de '+nombre+' '+apellido,
+            icon = '/static/img/logo.png'
+        )
+
+        return render(request, 'web/contacto.html', {'vision':vision})
+
+    return render(request, 'web/contacto.html', {'vision':vision})
+
 @login_required(login_url='/login')
 @permission_required('CleanCar.add_insumo', login_url='/login/')
 def admin_insumos(request):
@@ -94,6 +160,14 @@ def admin_insumos(request):
             }
             respuesta = requests.post("http://127.0.0.1:8000/api/insumos/", data=datos_api)
             messages.success(request, 'Se agregó un insumo')
+
+            # Enviar notificacion
+            dispositivos = FCMDevice.objects.filter(active=True)
+            dispositivos.send_message(
+                title = 'Nuevo insumo',
+                body = 'Ingresamos el insumo: '+nombre,
+                icon = '/static/img/logo.png'
+            )
 
             return redirect(admin_insumos)
 
